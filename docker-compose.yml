@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+    backend:
+        container_name: theapp
+        image: theapp
+        restart: always
+        ports:
+            - "8888:8888"
+        env_file:
+            - .env
+        volumes:
+            - ./data:/usr/src/data
+        deploy:
+            mode: replicated
+            replicas: 3

@@ -1,18 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import { NestFactory, NestApplication } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  const port = 8080;
   const app: NestApplication = await NestFactory.create(AppModule);
 
   await setupSwagger(app);
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  await app.listen(8080);
+  await app.listen(port);
+  Logger.log(`Listening on http://localhost:${port}`);
 }
 bootstrap();
 /**

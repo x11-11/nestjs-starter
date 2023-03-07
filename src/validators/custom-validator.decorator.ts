@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 
 import {
   registerDecorator,
@@ -25,6 +25,7 @@ class CustomConstraint implements ValidatorConstraintInterface {
   // constructor() {}
   async validate(value: string, args: ValidationArguments): Promise<boolean> {
     return Promise.resolve(value).then((name) => {
+      console.log(args);
       if (name) {
         throw new BadRequestException(`${name} already exists`);
       }

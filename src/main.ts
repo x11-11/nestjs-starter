@@ -3,10 +3,12 @@ import path from 'path';
 import { NestFactory, NestApplication } from '@nestjs/core';
 import { ValidationPipe, Logger } from '@nestjs/common';
 
+import { configService } from './common/config.service';
+
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const port = 8080;
+  const port = configService.get('PORT', false) || 8080;
   const app: NestApplication = await NestFactory.create(AppModule);
 
   await setupSwagger(app);
